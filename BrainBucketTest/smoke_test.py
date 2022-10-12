@@ -2,12 +2,24 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.color import Color
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+
 s = Service(executable_path = 'drivers/chromedriver')
 driver = webdriver.Chrome(service = s)
 driver.get("https://cleveronly.com/brainbucket/index.php?route=account/login")
 
 driver.maximize_window()
+
 logo = driver.find_element("xpath", "//img[@title='Brainbucket']")
+
+#Chapter 8 lesson 1 assignment
+wait = WebDriverWait(driver, 10)
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(text(),'Continue')]")))
 
 newregisterbtn = driver.find_element("xpath", "//a[contains(text(),'Continue')]")
 background_color = newregisterbtn.value_of_css_property('background-color')
