@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from selenium.webdriver.support.select import Select
 
 
 s = Service(executable_path = 'drivers/chromedriver')
@@ -97,6 +98,25 @@ converted_background_color2 = Color.from_string("background-color")
 assert converted_background_color2.rgb == 'rgb(34, 154, 200)'
 continue_btn.click()
 
+#Chapter 8.2 exercises
+#exercise 1
+state_dropdown = driver.find_element("id", "input-zone")
+state_dropdown_select = Select(state_dropdown)
+state_dropdown_select.select_by_value("3635")
+
+no_subscribe_btn = driver.find_element("xpath", "//div[@id='content']/form/fieldset[4]/div/div/label[2]")
+no_subscribe_btn.click()
+
+privacy_policy_btn = driver.find_element("xpath", "//div[@id='content']/form/div/div/input")
+privacy_policy_btn.click()
+
+#exercise 2
+
+register_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/ul/li/a")
+register_btn.click()
+
+login_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")
+login_btn.click()
 #driver.quit()
 
 
