@@ -2,23 +2,28 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.color import Color
 
-from selenium import webdriver
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.support.select import Select
 
+from BrainBucketTest.drivers.browser import Browser
+from BrainBucketTest.drivers.UIElement import UIElement as Element
 
-s = Service(executable_path = 'drivers/chromedriver')
-driver = webdriver.Chrome(service = s)
-driver.get("https://cleveronly.com/brainbucket/index.php?route=account/login")
+
+# Chapter 9 exercise
+
+browser = Browser("https://cleveronly.com/brainbucket/index.php?route=common/home")
+driver = browser.get_driver()
+
 
 driver.maximize_window()
 
 logo = driver.find_element("xpath", "//img[@title='Brainbucket']")
 
-#Chapter 8 lesson 1 assignment
+# Chapter 8 lesson 1 assignment
 wait = WebDriverWait(driver, 10)
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(text(),'Continue')]")))
 
@@ -38,8 +43,8 @@ firstname_input.clear()
 firstname_input.send_keys("Oleg")
 
 
-#homework,
-#exercise 1
+# homework,
+# exercise 1
 password_field = driver.find_element("xpath", "//input[@id='input-password']")
 password_input = driver.find_element("id", "input-password")
 password_input.clear()
@@ -98,25 +103,26 @@ converted_background_color2 = Color.from_string("background-color")
 assert converted_background_color2.rgb == 'rgb(34, 154, 200)'
 continue_btn.click()
 
-#Chapter 8.2 exercises
-#exercise 1
+# Chapter 8.2 exercises
+# exercise 1
 state_dropdown = driver.find_element("id", "input-zone")
 state_dropdown_select = Select(state_dropdown)
 state_dropdown_select.select_by_value("3635")
 
-no_subscribe_btn = driver.find_element("xpath", "//div[@id='content']/form/fieldset[4]/div/div/label[2]")
+# chapter 9 exercise
+
+no_subscribe_btn = Element(browser, By.XPATH, "//div[@id='content']/form/fieldset[4]/div/div/label[2]")
 no_subscribe_btn.click()
 
-privacy_policy_btn = driver.find_element("xpath", "//div[@id='content']/form/div/div/input")
+privacy_policy_btn = Element(browser, By.XPATH, "//div[@id='content']/form/div/div/input")
 privacy_policy_btn.click()
 
-#exercise 2
-
-register_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/ul/li/a")
+register_btn = Element(browser, By.XPATH, "//div[@id='top-links']/ul/li[2]/ul/li/a")
 register_btn.click()
 
-login_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")
+login_btn = Element(browser, By.XPATH, "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")
 login_btn.click()
-#driver.quit()
+
+browser.shutdown()
 
 
