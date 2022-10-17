@@ -1,5 +1,5 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.color import Color
 
 
@@ -12,6 +12,7 @@ from selenium.webdriver.support.select import Select
 from BrainBucketTest.drivers.browser import Browser
 from BrainBucketTest.drivers.UIElement import UIElement as Element
 
+from BrainBucketTest.drivers.dropdown import Dropdown
 
 # Chapter 9 exercise
 
@@ -24,7 +25,7 @@ driver.maximize_window()
 logo = driver.find_element("xpath", "//img[@title='Brainbucket']")
 
 # Chapter 8 lesson 1 assignment
-wait = WebDriverWait(driver, 10)
+wait = WebDriverWait(driver, 0)
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(text(),'Continue')]")))
 
 newregisterbtn = driver.find_element("xpath", "//a[contains(text(),'Continue')]")
@@ -123,6 +124,12 @@ register_btn.click()
 login_btn = Element(browser, By.XPATH, "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")
 login_btn.click()
 
+# homework chapter 9.2
+
+Dropdown(browser, By.ID, "input-country").deselect_by_text(None)
+Dropdown(browser, By.ID, "input-state").deselect_by_text(None)
+
+Dropdown(browser, By.ID, "newsletter").select_by__value("1")
 browser.shutdown()
 
 
