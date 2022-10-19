@@ -33,107 +33,107 @@ account_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/a").
 wd_wait.until(EC.visibility_of_element_located(("xpath", "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")))
 login_option = driver.find_element("xpath", "//*[@class='dropdown-menu dropdown-menu-right']/li[2]")
 login_option.click()
+login_option = Element(browser, "xpath", "//div[@id='content']/div/div/div/h2")
+assert "New Customer" == login_option.get_text()
 
-newregisterbtn = driver.find_element("xpath", "//div[@id='content']/div/div/div/a")
-background_color = newregisterbtn.value_of_css_property('background-color')
+
+continue_btn = driver.find_element("xpath", "//div[@id='content']/div/div/div/a")
+background_color = continue_btn.value_of_css_property('background-color')
 converted_background_color = Color.from_string(background_color)
 assert converted_background_color.rgb == 'rgb(34, 154, 200)'
-newregisterbtn.click()
+continue_btn.click()
 
 register_btn = Element(browser, "xpath", "//div[@id='top-links']/ul/li[2]/a").click()
+# assert "Register Account" == register_btn.get_text()
+
 
 firstname_field = driver.find_element("xpath", "//fieldset/div[2]")
 firstname_field_class = firstname_field.get_attribute("class")
 assert "required" in firstname_field_class
-
 
 firstname_input = driver.find_element("id", "input-firstname")
 firstname_input.clear()
 firstname_input.send_keys("Oleg")
 
 
-# homework,
-# exercise 1
-password_field = driver.find_element("xpath", "//input[@id='input-password']")
-password_input = driver.find_element("id", "input-password")
-password_input.clear()
-password_input.send_keys("12345678")
-password_field.click()
-
-# homework exercise 2
-
-lastname_field = driver.find_element("xpath", "//fieldset[@id='account']/div[3]/label")
+lastname_field = driver.find_element("xpath", "//fieldset[@id='account']/div[3]")
 lastname_field_class = lastname_field.get_attribute("class")
-# print(lastname_field_class)
-# assert "required" in lastname_field_class
+assert "required" in lastname_field_class
 
 lastname_input = driver.find_element("id", "input-lastname")
 lastname_input.clear()
 lastname_input.send_keys("Andriushchenko")
 
-email_field = driver.find_element("xpath", "//fieldset[@id='account']/div[4]/label")
+
+email_field = driver.find_element("xpath", "//fieldset[@id='account']/div[4]")
 email_field_class = email_field.get_attribute("class")
-# assert "required" in email_field_class
+assert "required" in email_field_class
 
 email_input = driver.find_element("id", "input-email")
 email_input.clear()
 email_input.send_keys("oleg@gmail.com")
 
 
-telephone_field = driver.find_element("xpath", "//fieldset[@id='account']/div[5]/label")
+telephone_field = driver.find_element("xpath", "//fieldset[@id='account']/div[5]")
 telephone_field_class = telephone_field.get_attribute("class")
-# assert "required" in telephone_field_class
+assert "required" in telephone_field_class
 
 telephone_input = driver.find_element("id", "input-telephone")
 telephone_input.clear()
 telephone_input.send_keys("1234567890")
 
 
-address_field = driver.find_element("xpath", "//fieldset[@id='address']/div[2]/label")
+address_field = driver.find_element("xpath", "//fieldset[@id='address']/div[2]")
 address_field_class = address_field.get_attribute("class")
-# assert "required" in address_field_class
+assert "required" in address_field_class
 
 address_input = driver.find_element("id", "input-address-1")
 address_input.clear()
 address_input.send_keys("123 Michigan Ave")
 
 
-city_field = driver.find_element("xpath", "//fieldset[@id='address']/div[4]/label")
+city_field = driver.find_element("xpath", "//fieldset[@id='address']/div[4]")
 city_field_class = city_field.get_attribute("class")
-# assert "required" in city_field_class
+assert "required" in city_field_class
 
 city_input = driver.find_element("id", "input-city")
 city_input.clear()
 city_input.send_keys("Chicago")
 
 
+password_field = driver.find_element("xpath", "//input[@id='input-password']")
+password_input = driver.find_element("id", "input-password")
+password_input.clear()
+password_input.send_keys("12345678")
+password_field.click()
+
+
 continue_btn = driver.find_element("xpath", "//input[@value='Continue']")
 background_color2 = continue_btn.value_of_css_property("background-color")
-converted_background_color2 = Color.from_string("background-color")
+converted_background_color2 = Color.from_string(background_color2)
 assert converted_background_color2.rgb == 'rgb(34, 154, 200)'
 continue_btn.click()
 
 # Chapter 8.2 exercises
 # exercise 1
+
+
 state_dropdown = driver.find_element("id", "input-zone")
 state_dropdown_select = Select(state_dropdown)
 state_dropdown_select.select_by_value("3635")
 
 # chapter 9 exercise
 
-no_subscribe_btn = Element(browser, "xpath", "//div[@id='content']/form/fieldset[4]/div/div/label[2]")
-no_subscribe_btn.click()
+Dropdown(browser, "id", "input-country").select_by_text("--- Please Select ---")
+Dropdown(browser, "id", "input-zone").select_by_text("--- Please Select ---")
+
+
+subscribe_btn = Element(browser, "xpath", "//div[@id='content']/form/fieldset[4]/div/div/label/input")
+subscribe_btn.click()
 
 privacy_policy_btn = Element(browser, "xpath", "//div[@id='content']/form/div/div/input")
 privacy_policy_btn.click()
 
-
-# homework chapter 9.2
-
-Dropdown(browser, "id", "input-country").deselect_by_text(None)
-Dropdown(browser, "id", "input-state").deselect_by_text(None)
-
-Dropdown(browser, "id", "newsletter").select_by__value("1")
-browser.shutdown()
+# browser.shutdown()
 
 
