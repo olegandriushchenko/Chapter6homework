@@ -28,10 +28,10 @@ logo = driver.find_element("xpath", "//img[@title='Brainbucket']")
 wd_wait = WebDriverWait(driver, 10)
 element = wd_wait.until(EC.element_to_be_clickable(("xpath", "//div[@id='top-links']/ul/li[2]/a")))
 
-account_btn = driver.find_element("xpath", "//div[@id='top-links']/ul/li[2]/a").click()
+account_btn = Element(browser, "xpath", "//div[@id='top-links']/ul/li[2]/a").click()
 # login btn
 wd_wait.until(EC.visibility_of_element_located(("xpath", "//div[@id='top-links']/ul/li[2]/ul/li[2]/a")))
-login_option = driver.find_element("xpath", "//*[@class='dropdown-menu dropdown-menu-right']/li[2]")
+login_option = Element(browser, "xpath", "//*[@class='dropdown-menu dropdown-menu-right']/li[2]")
 login_option.click()
 login_option = Element(browser, "xpath", "//div[@id='content']/div/div/div/h2")
 assert "New Customer" == login_option.get_text()
@@ -47,7 +47,7 @@ register_btn = Element(browser, "xpath", "//div[@id='top-links']/ul/li[2]/a").cl
 # assert "Register Account" == register_btn.get_text()
 
 
-firstname_field = driver.find_element("xpath", "//fieldset/div[2]")
+firstname_field = Element(browser, "xpath", "//fieldset/div[2]")
 firstname_field_class = firstname_field.get_attribute("class")
 assert "required" in firstname_field_class
 
@@ -56,7 +56,7 @@ firstname_input.clear()
 firstname_input.send_keys("Oleg")
 
 
-lastname_field = driver.find_element("xpath", "//fieldset[@id='account']/div[3]")
+lastname_field = Element(browser, "xpath", "//fieldset[@id='account']/div[3]")
 lastname_field_class = lastname_field.get_attribute("class")
 assert "required" in lastname_field_class
 
@@ -65,7 +65,7 @@ lastname_input.clear()
 lastname_input.send_keys("Andriushchenko")
 
 
-email_field = driver.find_element("xpath", "//fieldset[@id='account']/div[4]")
+email_field = Element(browser, "xpath", "//fieldset[@id='account']/div[4]")
 email_field_class = email_field.get_attribute("class")
 assert "required" in email_field_class
 
@@ -74,7 +74,7 @@ email_input.clear()
 email_input.send_keys("oleg@gmail.com")
 
 
-telephone_field = driver.find_element("xpath", "//fieldset[@id='account']/div[5]")
+telephone_field = Element(browser, "xpath", "//fieldset[@id='account']/div[5]")
 telephone_field_class = telephone_field.get_attribute("class")
 assert "required" in telephone_field_class
 
@@ -83,7 +83,7 @@ telephone_input.clear()
 telephone_input.send_keys("1234567890")
 
 
-address_field = driver.find_element("xpath", "//fieldset[@id='address']/div[2]")
+address_field = Element(browser, "xpath", "//fieldset[@id='address']/div[2]")
 address_field_class = address_field.get_attribute("class")
 assert "required" in address_field_class
 
@@ -92,7 +92,7 @@ address_input.clear()
 address_input.send_keys("123 Michigan Ave")
 
 
-city_field = driver.find_element("xpath", "//fieldset[@id='address']/div[4]")
+city_field = Element(browser, "xpath", "//fieldset[@id='address']/div[4]")
 city_field_class = city_field.get_attribute("class")
 assert "required" in city_field_class
 
@@ -101,7 +101,7 @@ city_input.clear()
 city_input.send_keys("Chicago")
 
 
-password_field = driver.find_element("xpath", "//input[@id='input-password']")
+password_field = Element(browser, "xpath", "//input[@id='input-password']")
 password_input = driver.find_element("id", "input-password")
 password_input.clear()
 password_input.send_keys("12345678")
