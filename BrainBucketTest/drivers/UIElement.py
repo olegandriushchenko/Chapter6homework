@@ -1,6 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.support.color import Color
 
+
 class UIElement:
     def __init__(self, browser, by, locator):
         self.driver = browser.get_driver()
