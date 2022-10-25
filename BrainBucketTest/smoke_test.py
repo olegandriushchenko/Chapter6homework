@@ -12,6 +12,8 @@ from BrainBucketTest.drivers.dropdown import Dropdown
 from BrainBucketTest.components.header import Header
 from BrainBucketTest.components.right_menu import RightMenu
 from BrainBucketTest.components.footer import Footer
+from BrainBucketTest.pages.login_page import LoginPage
+from BrainBucketTest.pages.registration_page import RegistrationPage
 
 URL = "https://cleveronly.com/brainbucket/index.php?route=common/home"
 
@@ -32,10 +34,19 @@ def test_header_1():
 def test_login_through_dropdown():
     browser = Browser(URL)
     driver = browser.get_driver()
+
+    login1 = LoginPage(browser)
+
     login = Header(browser)
     login.open_login_page()
     login_option = Element(browser, "xpath", "//div[@id='content']/div/div/div/h2")
     assert "New Customer" == login_option.get_text()
+
+    login1.email_input_click("olegandriushchenko95@gmail.com")
+
+    login1.password_input_click("12345678")
+
+    login1.login_button_click()
 
     continue_btn = driver.find_element("xpath", "//div[@id='content']/div/div/div/a")
     background_color = continue_btn.value_of_css_property('background-color')
@@ -48,56 +59,51 @@ def test_registration_through_dropdown():
     browser = Browser(URL)
     driver = browser.get_driver()
 
-    registration = Header(browser)
-    registration.open_registration_form()
+    registration = LoginPage(browser)
+    registration.open_registration_from_account_dropdown()
+
+    registration1 = RegistrationPage(browser)
 
     firstname_field = Element(browser, "xpath", "//fieldset/div[2]")
     firstname_field_class = firstname_field.get_attribute("class")
     assert "required" in firstname_field_class
-    firstname_input = driver.find_element("id", "input-firstname")
-    firstname_input.clear()
-    firstname_input.send_keys("Oleg")
+    registration1.enter_first_name("Oleg")
 
     lastname_field = Element(browser, "xpath", "//fieldset[@id='account']/div[3]")
     lastname_field_class = lastname_field.get_attribute("class")
     assert "required" in lastname_field_class
-    lastname_input = driver.find_element("id", "input-lastname")
-    lastname_input.clear()
-    lastname_input.send_keys("Andriushchenko")
+    registration1.enter_last_name("Andriushchenko")
 
     email_field = Element(browser, "xpath", "//fieldset[@id='account']/div[4]")
     email_field_class = email_field.get_attribute("class")
     assert "required" in email_field_class
-    email_input = driver.find_element("id", "input-email")
-    email_input.clear()
-    email_input.send_keys("oleg@gmail.com")
+    registration1.enter_email("olegandriushchenko95@gmail.com")
 
     telephone_field = Element(browser, "xpath", "//fieldset[@id='account']/div[5]")
     telephone_field_class = telephone_field.get_attribute("class")
     assert "required" in telephone_field_class
-    telephone_input = driver.find_element("id", "input-telephone")
-    telephone_input.clear()
-    telephone_input.send_keys("1234567890")
+    registration1.enter_telephone("1234567890")
+
+    registration1.enter_fax("1234567890")
+
+    registration1.enter_company("BBC")
 
     address_field = Element(browser, "xpath", "//fieldset[@id='address']/div[2]")
     address_field_class = address_field.get_attribute("class")
     assert "required" in address_field_class
-    address_input = driver.find_element("id", "input-address-1")
-    address_input.clear()
-    address_input.send_keys("123 Michigan Ave")
+    registration1.enter_first_line_address("123 Michigan Ave")
 
     city_field = Element(browser, "xpath", "//fieldset[@id='address']/div[4]")
     city_field_class = city_field.get_attribute("class")
     assert "required" in city_field_class
-    city_input = driver.find_element("id", "input-city")
-    city_input.clear()
-    city_input.send_keys("Chicago")
+    registration1.enter_city("Chicago")
 
-    password_field = Element(browser, "xpath", "//input[@id='input-password']")
-    password_input = driver.find_element("id", "input-password")
-    password_input.clear()
-    password_input.send_keys("12345678")
-    password_field.click()
+    registration1.enter_postcode("12345")
+
+    registration1.select_state("Illinois")
+
+    registration1.enter_password("12345678")
+    registration1.confirm_password("12345678")
 
     continue_btn = driver.find_element("xpath", "//input[@value='Continue']")
     background_color2 = continue_btn.value_of_css_property("background-color")
@@ -105,18 +111,8 @@ def test_registration_through_dropdown():
     assert converted_background_color2.rgb == 'rgb(34, 154, 200)'
     continue_btn.click()
 
-    state_dropdown = driver.find_element("id", "input-zone")
-    state_dropdown_select = Select(state_dropdown)
-    state_dropdown_select.select_by_value("3635")
-
-    Dropdown(browser, "id", "input-country").select_by_text("--- Please Select ---")
-    Dropdown(browser, "id", "input-zone").select_by_text("--- Please Select ---")
-
-    subscribe_btn = Element(browser, "xpath", "//div[@id='content']/form/fieldset[4]/div/div/label/input")
-    subscribe_btn.click()
-
-    privacy_policy_btn = Element(browser, "xpath", "//div[@id='content']/form/div/div/input")
-    privacy_policy_btn.click()
+    registration1.subscribe_to_newsletters()
+    registration1.agree_to_privacy_policy()
 
     # right menu check
     right_menu1 = RightMenu(browser)
