@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.support.color import Color
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,6 +16,9 @@ from BrainBucketTest.components.right_menu import RightMenu
 from BrainBucketTest.components.footer import Footer
 from BrainBucketTest.pages.login_page import LoginPage
 from BrainBucketTest.pages.registration_page import RegistrationPage
+from BrainBucketTest.drivers.actions import Actions
+
+from selenium.webdriver.common.keys import Keys
 
 URL = "https://cleveronly.com/brainbucket/index.php?route=common/home"
 
@@ -30,29 +35,7 @@ def test_header_1():
     call = Header(browser)
     call.contact_us()
 
-
-def test_login_through_dropdown():
-    browser = Browser(URL)
-    driver = browser.get_driver()
-
-    login1 = LoginPage(browser)
-
-    login = Header(browser)
-    login.open_login_page()
-    login_option = Element(browser, "xpath", "//div[@id='content']/div/div/div/h2")
-    assert "New Customer" == login_option.get_text()
-
-    login1.email_input_click("olegandriushchenko95@gmail.com")
-
-    login1.password_input_click("12345678")
-
-    login1.login_button_click()
-
-    continue_btn = driver.find_element("xpath", "//div[@id='content']/div/div/div/a")
-    background_color = continue_btn.value_of_css_property('background-color')
-    converted_background_color = Color.from_string(background_color)
-    assert converted_background_color.rgb == 'rgb(34, 154, 200)'
-    continue_btn.click()
+    browser.shutdown()
 
 
 def test_registration_through_dropdown():
@@ -114,45 +97,61 @@ def test_registration_through_dropdown():
     registration1.subscribe_to_newsletters()
     registration1.agree_to_privacy_policy()
 
+    browser.shutdown()
+
+
+def test_login_through_dropdown():
+    browser = Browser(URL)
+    driver = browser.get_driver()
+
+    login1 = LoginPage(browser)
+
+    login = Header(browser)
+    login.open_login_page()
+    login_option = Element(browser, "xpath", "//div[@id='content']/div/div/div/h2")
+    assert "New Customer" == login_option.get_text()
+
+    login1.email_input_click("olegandriushchenko95@gmail.com")
+
+    login1.password_input_click("12345678")
+
+    login1.login_button_click()
+
+    continue_btn = driver.find_element("xpath", "//div[@id='content']/div/div/div/a")
+    background_color = continue_btn.value_of_css_property('background-color')
+    converted_background_color = Color.from_string(background_color)
+    assert converted_background_color.rgb == 'rgb(34, 154, 200)'
+    continue_btn.click()
+
     # right menu check
-    right_menu1 = RightMenu(browser)
-    right_menu1.click_login()
+    right_menu = RightMenu(browser)
+    right_menu.click_login()
 
-    right_menu2 = RightMenu(browser)
-    right_menu2.click_registration()
+    right_menu.click_registration()
 
-    right_menu3 = RightMenu(browser)
-    right_menu3.click_forgotten_btn()
+    right_menu.click_forgotten_btn()
 
-    right_menu4 = RightMenu(browser)
-    right_menu4.click_my_account()
+    right_menu.click_my_account()
 
-    right_menu5 = RightMenu(browser)
-    right_menu5.click_my_address()
+    right_menu.click_my_address()
 
-    right_menu6 = RightMenu(browser)
-    right_menu6.click_wish_list()
+    right_menu.click_wish_list()
 
-    right_menu7 = RightMenu(browser)
-    right_menu7.click_order_history()
+    right_menu.click_order_history()
 
-    right_menu8 = RightMenu(browser)
-    right_menu8.click_downloads()
+    right_menu.click_downloads()
 
-    right_menu9 = RightMenu(browser)
-    right_menu9.click_recurring_payments()
+    right_menu.click_recurring_payments()
 
-    right_menu10 = RightMenu(browser)
-    right_menu10.click_reward_points()
+    right_menu.click_reward_points()
 
-    right_menu11 = RightMenu(browser)
-    right_menu11.click_returns()
+    right_menu.click_returns()
 
-    right_menu12 = RightMenu(browser)
-    right_menu12.click_transactions()
+    right_menu.click_transactions()
 
-    right_menu13 = RightMenu(browser)
-    right_menu13.click_newsletter()
+    right_menu.click_newsletter()
+
+    browser.shutdown()
 
 
 def test_header_2():
@@ -167,63 +166,113 @@ def test_header_2():
     search = Header(browser)
     search.search_for()
 
+    browser.shutdown()
+
 
 def test_footer1():
     browser = Browser(URL)
 
-    about_us = Footer(browser)
-    about_us.about_us_click()
+    footer = Footer(browser)
 
-    delivery_information = Footer(browser)
-    delivery_information.delivery_information_click()
+    footer.about_us_click()
 
-    privacy_policy = Footer(browser)
-    privacy_policy.privacy_policy_click()
+    footer.delivery_information_click()
 
-    terms_and_conditions = Footer(browser)
-    terms_and_conditions.delivery_information_click()
+    footer.privacy_policy_click()
 
-    contact_us = Footer(browser)
-    contact_us.contact_us_click()
+    footer.delivery_information_click()
 
-    returns = Footer(browser)
-    returns.returns_click()
+    footer.contact_us_click()
 
-    site_map = Footer(browser)
-    site_map.site_map_click()
+    footer.returns_click()
 
-    brands = Footer(browser)
-    brands.brands_click()
+    footer.site_map_click()
 
-    gift_certification = Footer(browser)
-    gift_certification.gift_certification_click()
+    footer.brands_click()
 
-    affiliates = Footer(browser)
-    affiliates.affiliates_click()
+    footer.gift_certification_click()
 
-    specials = Footer(browser)
-    specials.specials_click()
+    footer.affiliates_click()
 
-    my_account = Footer(browser)
-    my_account.my_account_click()
+    footer.specials_click()
 
-    order_history = Footer(browser)
-    order_history.order_history_click()
+    footer.my_account_click()
 
-    wish_list = Footer(browser)
-    wish_list.wish_list_click()
+    footer.order_history_click()
 
-    newsletter = Footer(browser)
-    newsletter.newsletter_click()
+    footer.wish_list_click()
+
+    footer.newsletter_click()
+
+    browser.shutdown()
+
+
+def chapter_11():
+    browser = Browser("https://cleveronly.com/practice/")
+
+    action_chains = Actions(browser)
+    element = Element(browser, "xpath", "//aside[@id='card']")
+    action_chains.double_click(element)
+    time.sleep(2)
+    background_color = element.get_background_color()
+    converted_background_color2 = Color.from_string(background_color)
+    print(converted_background_color2)
+    assert converted_background_color2.rgb == 'rgb(255, 179, 128)'
+
+
+def chapter_11_1_2():
+    browser = Browser("https://cleveronly.com/practice/")
+
+    action_chains = Actions(browser)
+    element = Element(browser, "xpath", "//input[@type='text']")
+    action_chains.send_keys_to_element(element, Keys.ENTER)
+    time.sleep(3)
+    element1 = Element(browser, "xpath", "//p[text()='You pressed the key!']")
+    assert "You pressed the key!" == element1.get_text()
+
+
+def chapter_11_1_3():
+    browser = Browser("https://cleveronly.com/practice/")
+
+    action_chains = Actions(browser)
+    element = Element(browser, "xpath", "//div[@id='context_menu']")
+    action_chains.right_click(element)
+    element1 = Element(browser, "xpath", "//li[@onclick='changeColor()']")
+    element1.click()
+    background_color = element.get_background_color()
+    converted_background_color3 = Color.from_string(background_color)
+    print(converted_background_color3)
+    assert converted_background_color3.rgb == 'rgb(204, 255, 245)'
+
+    action_chains = Actions(browser)
+    action_chains.right_click(element)
+    element2 = Element(browser, "xpath", "//li[@onclick='changeFont()']")
+    element2.click()
+    text_element = Element(browser, "xpath", "//div[@id='context_menu']/p")
+    text_font = text_element.get_text_font()
+    print(text_font)
+    assert text_font == '"Source Sans Pro", Arial, Helvetica, sans-serif'
+
+    action_chains = Actions(browser)
+    action_chains.right_click(element)
+    element3 = Element(browser, "xpath", "//li[@class='menu-option']/a")
+    original_window = browser.get_driver().current_window_handle
+    element3.click()
+    browser.get_driver().switch_to.window(original_window)
+
+    action_chains = Actions(browser)
+    action_chains.right_click(element)
+    action_chains.send_keys(Keys.ESCAPE)
+    menu = Element(browser, "xpath", "//div[@class='menu']")
+    menu.wait_until_invisible()
 
 
 if __name__ == "__main__":
-    test_header_1()
-    test_login_through_dropdown()
-    test_registration_through_dropdown()
-    test_header_2()
-    test_footer1()
-
-# browser.shutdown()
-
-
+    # test_header_1()
+    # test_registration_through_dropdown()
+    # test_login_through_dropdown()
+    # test_header_2()
+    # test_footer1()
+    # chapter_11()
+    # chapter_11_1_2()
+    chapter_11_1_3()

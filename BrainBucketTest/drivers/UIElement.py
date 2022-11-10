@@ -1,5 +1,5 @@
 from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.support.color import Color
+from selenium.webdriver.support.color import Color
 
 
 class UIElement:
@@ -14,6 +14,9 @@ class UIElement:
 
     def wait_until_visible(self):
         return self.wait.until(EC.visibility_of_element_located((self._by, self._locator)))
+
+    def wait_until_invisible(self):
+        return self.wait.until(EC.invisibility_of_element_located((self._by, self._locator)))
 
     def get_text(self, wait=True):
         if wait:
@@ -42,4 +45,10 @@ class UIElement:
 
     def submit(self):
         self.wait.until(EC.element_to_be_clickable((self._by, self._locator))).submit()
+
+    def get_background_color(self):
+        return self.get_element().value_of_css_property("background-color")
+
+    def get_text_font(self):
+        return self.get_element().value_of_css_property("font-family")
 
