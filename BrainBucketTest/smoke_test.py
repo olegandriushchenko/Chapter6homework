@@ -20,6 +20,8 @@ from BrainBucketTest.drivers.actions import Actions
 
 from selenium.webdriver.common.keys import Keys
 
+from BrainBucketTest.pages.home_page import HomePage
+
 URL = "https://cleveronly.com/brainbucket/index.php?route=common/home"
 
 
@@ -169,6 +171,32 @@ def test_header_2():
     browser.shutdown()
 
 
+def test_opening_all_desktops():
+    browser = Browser(URL)
+    home_page = HomePage(browser)
+    home_page.show_all_desktops()
+
+    section_title = Element(browser, "xpath", "//*[@id='content']/h2").get_text()
+
+    assert section_title == "Desktops"
+
+
+def test_opening_all_pcs():
+    browser = Browser(URL)
+    home_page = HomePage(browser)
+    home_page.show_all_laptops()
+
+    section_title = Element(browser, "xpath", "//h3[text()='Refine Search']").get_text()
+
+    assert section_title == "Refine Search"
+
+
+def test_opening_macs():
+    browser = Browser(URL)
+    home_page = HomePage(browser)
+    home_page.show_mac_desktops()
+
+
 def test_footer1():
     browser = Browser(URL)
 
@@ -272,7 +300,9 @@ if __name__ == "__main__":
     # test_registration_through_dropdown()
     # test_login_through_dropdown()
     # test_header_2()
+    test_opening_all_desktops()
+    test_opening_all_pcs()
     # test_footer1()
     # chapter_11()
     # chapter_11_1_2()
-    chapter_11_1_3()
+    # chapter_11_1_3()

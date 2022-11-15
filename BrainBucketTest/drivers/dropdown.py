@@ -19,6 +19,9 @@ class Dropdown(Element):
     def deselect_by_text(self, option):
         Select(self.get_element()).deselect_by_visible_text(option)
 
+    def select_by_option_xpath(self, option_xpath):
+        self.click(self.get_locator() + option_xpath)
+
 
 class Checkbox(Element):
     def __init__(self, browser, by, locator):

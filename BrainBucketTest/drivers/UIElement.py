@@ -12,6 +12,9 @@ class UIElement:
     def get_element(self):
         return self.driver.find_element(self._by, self._locator)
 
+    def get_locator(self):
+        return self._locator
+
     def wait_until_visible(self):
         return self.wait.until(EC.visibility_of_element_located((self._by, self._locator)))
 
@@ -32,8 +35,12 @@ class UIElement:
             element = self.get_element()
         return element.get_attribute(attribute)
 
-    def click(self):
-        self.wait.until(EC.element_to_be_clickable((self._by, self._locator))).click()
+    def click(self, xpath=None):
+        if xpath is None:
+            locator = self._locator
+        else:
+            locator = xpath
+        self.wait.until(EC.element_to_be_clickable((self._by, locator))).click()
 
     def enter_text(self, text, wait=True):
         if wait:
