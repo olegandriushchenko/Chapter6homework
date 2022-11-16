@@ -1,5 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.color import Color
+from datetime import datetime
+from selenium.common.exceptions import *
 
 
 class UIElement:
@@ -9,8 +11,18 @@ class UIElement:
         self._by = by
         self._locator = locator
 
+    def save_screenshot(self):
+        now = datetime.now()
+        filename = "../screenshots/" + now.strftime("%d%m%Y_%H%M%S.png")
+        self.driver.save_screenshot(filename)
+
     def get_element(self):
-        return self.driver.find_element(self._by, self._locator)
+        try:
+            return self.driver.find_element(self._by, self._locator)
+        except NoSuchElementException:
+            print("Wasn't able to find element by {} with locator={}".format(self._by, self._locator))
+            self.save_screenshot()
+            raise
 
     def get_locator(self):
         return self._locator
@@ -51,7 +63,12 @@ class UIElement:
         element.send_keys(text)
 
     def submit(self):
-        self.wait.until(EC.element_to_be_clickable((self._by, self._locator))).submit()
+        try:
+            self.wait.until(EC.element_to_be_clickable((self._by, self._locator))).submit()
+        except TimeoutException:
+            print("Web element with locator {} by {} is not clickable".format(self._locator, self._by))
+            self.save_screenshot()
+            raise
 
     def get_background_color(self):
         return self.get_element().value_of_css_property("background-color")

@@ -5,11 +5,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class Browser:
     def __init__(self, url, browser_name=""):
-        if browser_name.lower() == "firefox":
-            self.driver = webdriver.Firefox(executable_path="drivers/geckodriver")
-        else:
-            s = Service(executable_path='drivers/chromedriver')
-            self.driver = webdriver.Chrome(service=s)
+        try:
+            if browser_name.lower() == "firefox":
+                self.driver = webdriver.Firefox(executable_path="drivers/geckodriver")
+            else:
+                s = Service(executable_path='drivers/chromedriver')
+                self.driver = webdriver.Chrome(service=s)
+        except:
+            print("The path to the driver is incorrect")
 
         self.driver.get(url)
         self.wait = WebDriverWait(self.driver, 10)
