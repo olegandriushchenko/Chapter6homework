@@ -18,6 +18,9 @@ from BrainBucketTest.pages.login_page import LoginPage
 from BrainBucketTest.pages.registration_page import RegistrationPage
 from BrainBucketTest.drivers.actions import Actions
 
+from BrainBucketTest.components.alerts import Alert
+from BrainBucketTest.components.iframe import Iframe
+
 from selenium.webdriver.common.keys import Keys
 
 from BrainBucketTest.pages.home_page import HomePage
@@ -295,14 +298,78 @@ def chapter_11_1_3():
     menu.wait_until_invisible()
 
 
+# Chapter 12 exercise 3
+
+def test_alert1():
+    browser = Browser("https://cleveronly.com/practice/")
+    alert_btn = Element(browser, "xpath", "//button[@onclick='openAlert()']")
+    alert_btn.click()
+
+    alert = browser.get_driver().switch_to.alert
+    time.sleep(2)
+    alert.accept()
+
+
+def test_confirm_alert():
+    browser = Browser("https://cleveronly.com/practice/")
+    confirm_btn = Element(browser, "xpath", "//button[@onclick='openConfirmationAlert()']")
+    confirm_btn.click()
+
+    alert = browser.get_driver().switch_to.alert
+    time.sleep(2)
+    alert.dismiss()
+
+    time.sleep(2)
+    msg = Element(browser, "id", 'msg')
+    assert msg.get_text() == "You pressed CANCEL!"
+
+    confirm_btn.click()
+    alert.accept()
+    assert msg.get_text() == "You pressed OK!"
+
+
+def test_prompt_alert():
+    browser = Browser("https://cleveronly.com/practice/")
+    prompt_btn = Element(browser, "xpath", "//button[@onclick='openPrompt()']")
+    prompt_btn.click()
+    alert = browser.get_driver().switch_to.alert
+
+    time.sleep(2)
+    name = "Oleg"
+    alert.send_keys(name)
+    alert.accept()
+
+    msg = "Hello {}! How are you today?".format(name)
+    prompt_msg = Element(browser, "id", 'demo')
+    assert prompt_msg.get_text() == msg
+
+    browser.shutdown()
+
+
+def test_iframe():
+    browser = Browser("https://cleveronly.com/practice/")
+    iframe = Element(browser, "tag_name", 'iframe')
+    browser.get_driver().switch_to.frame(iframe.get_element())
+
+    time.sleep(2)
+    Element(browser, "xpath", "//*[@class='logo__title']").wait_until_visible()
+
+    browser.get_driver().switch_to.default_content()
+
+
 if __name__ == "__main__":
+
     # test_header_1()
     # test_registration_through_dropdown()
     # test_login_through_dropdown()
     # test_header_2()
-    test_opening_all_desktops()
-    test_opening_all_pcs()
+    # test_opening_all_desktops()
+    # test_opening_all_pcs()
     # test_footer1()
     # chapter_11()
     # chapter_11_1_2()
     # chapter_11_1_3()
+    test_alert1()
+    test_confirm_alert()
+    test_prompt_alert()
+    test_iframe()
