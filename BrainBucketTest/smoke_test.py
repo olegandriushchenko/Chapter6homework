@@ -302,59 +302,27 @@ def chapter_11_1_3():
 
 def test_alert1():
     browser = Browser("https://cleveronly.com/practice/")
+    alert_1 = Alert(browser)
     alert_btn = Element(browser, "xpath", "//button[@onclick='openAlert()']")
-    alert_btn.click()
-
-    alert = browser.get_driver().switch_to.alert
-    time.sleep(2)
-    alert.accept()
+    alert_1.switch_to_alert(alert_btn)
 
 
 def test_confirm_alert():
     browser = Browser("https://cleveronly.com/practice/")
+    alert_confirm = Alert(browser)
     confirm_btn = Element(browser, "xpath", "//button[@onclick='openConfirmationAlert()']")
-    confirm_btn.click()
-
-    alert = browser.get_driver().switch_to.alert
-    time.sleep(2)
-    alert.dismiss()
+    alert_confirm.accept_alert(confirm_btn)
 
     time.sleep(2)
     msg = Element(browser, "id", 'msg')
-    assert msg.get_text() == "You pressed CANCEL!"
-
-    confirm_btn.click()
-    alert.accept()
     assert msg.get_text() == "You pressed OK!"
 
 
 def test_prompt_alert():
     browser = Browser("https://cleveronly.com/practice/")
+    enter_text_alert = Alert(browser)
     prompt_btn = Element(browser, "xpath", "//button[@onclick='openPrompt()']")
-    prompt_btn.click()
-    alert = browser.get_driver().switch_to.alert
-
-    time.sleep(2)
-    name = "Oleg"
-    alert.send_keys(name)
-    alert.accept()
-
-    msg = "Hello {}! How are you today?".format(name)
-    prompt_msg = Element(browser, "id", 'demo')
-    assert prompt_msg.get_text() == msg
-
-    browser.shutdown()
-
-
-def test_iframe():
-    browser = Browser("https://cleveronly.com/practice/")
-    iframe = Element(browser, "tag_name", 'iframe')
-    browser.get_driver().switch_to.frame(iframe.get_element())
-
-    time.sleep(2)
-    Element(browser, "xpath", "//*[@class='logo__title']").wait_until_visible()
-
-    browser.get_driver().switch_to.default_content()
+    enter_text_alert.enter_text(prompt_btn)
 
 
 if __name__ == "__main__":
