@@ -24,12 +24,15 @@ from BrainBucketTest.components.iframe import Iframe
 from selenium.webdriver.common.keys import Keys
 
 from BrainBucketTest.pages.home_page import HomePage
+from BrainBucketTest.utils.config_reader import ConfigReader
+
 
 URL = "https://cleveronly.com/brainbucket/index.php?route=common/home"
+configs = ConfigReader("config.json")
 
 
 def test_header_1():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
 
     logo = Header(browser)
     logo.verify_logo_is_visible()
@@ -44,7 +47,7 @@ def test_header_1():
 
 
 def test_registration_through_dropdown():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
     driver = browser.get_driver()
 
     registration = LoginPage(browser)
@@ -106,7 +109,7 @@ def test_registration_through_dropdown():
 
 
 def test_login_through_dropdown():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
     driver = browser.get_driver()
 
     login1 = LoginPage(browser)
@@ -160,7 +163,7 @@ def test_login_through_dropdown():
 
 
 def test_header_2():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
 
     wishlist = Header(browser)
     wishlist.open_wishlist()
@@ -175,7 +178,7 @@ def test_header_2():
 
 
 def test_opening_all_desktops():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
     home_page = HomePage(browser)
     home_page.show_all_desktops()
 
@@ -185,7 +188,7 @@ def test_opening_all_desktops():
 
 
 def test_opening_all_pcs():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
     home_page = HomePage(browser)
     home_page.show_all_laptops()
 
@@ -195,13 +198,13 @@ def test_opening_all_pcs():
 
 
 def test_opening_macs():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
     home_page = HomePage(browser)
     home_page.show_mac_desktops()
 
 
 def test_footer1():
-    browser = Browser(URL)
+    browser = Browser(URL, configs.get_browser(), configs.get_wait_time())
 
     footer = Footer(browser)
 
@@ -340,4 +343,4 @@ if __name__ == "__main__":
     test_alert1()
     test_confirm_alert()
     test_prompt_alert()
-    test_iframe()
+
