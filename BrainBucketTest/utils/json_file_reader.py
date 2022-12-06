@@ -28,4 +28,17 @@ class JsonFileReader:
             raise Exception("User_password option is not in the config file")
         return self.data['user_password']
 
+    def get_browser_height(self):
+        if 'browser_height' not in self.data.keys():
+            raise Exception("browser_height option is not in the config file")
+        return int(self.data['browser_height'])
+
+    def get_browser_width(self):
+        if 'browser_width' not in self.data.keys():
+            raise Exception("browser_width option is not in the config file")
+        return int(self.data['browser_width'])
+
+
+
+
 

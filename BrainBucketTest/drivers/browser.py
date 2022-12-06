@@ -4,14 +4,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Browser:
-    def __init__(self, url, browser_name="", time_wait = 10):
+    def __init__(self, url, browser_name="", time_wait=10):
         try:
             if browser_name.lower() == "firefox":
                 self.driver = webdriver.Firefox(executable_path="drivers/geckodriver")
             else:
                 s = Service(executable_path='drivers/chromedriver')
                 self.driver = webdriver.Chrome(service=s)
-
+                options = webdriver.ChromeOptions()
+                options.add_argument("--start-maximized")
+                options.add_argument("--window-size=360,800")
+                options.add_argument("--incognito")
+                options.add_argument("--disable-popup-blocking")
+                options.add_experimental_option("excludeSwitches", ['enable-automation'])
+                self.driver = webdriver.Chrome(executable_path=r'../drivers/chromedriver', options=options)
         except:
             print("The path to the driver is incorrect")
 

@@ -22,13 +22,25 @@ class IniFileReader:
         return int(value)
 
     def get_user_email(self):
-        value = self.data.get('environment', 'user_email', fallback=None)
+        value = self.data.get('user1', 'user_email', fallback=None)
         if value is None:
             raise Exception("User_email option is not present in the config file")
         return self.data['user_email']
 
     def get_user_password(self):
-        value = self.data.get('environment', 'user_password', fallback=None)
+        value = self.data.get('user1', 'user_password', fallback=None)
         if value is None:
             raise Exception("User_password option is not in the config file")
         return self.data['user_password']
+
+    def get_browser_height(self):
+        value = self.data.get('user2', 'user_password', fallback=None)
+        if value is None:
+            raise Exception("browser_height option is not in the config file")
+        return int(value)
+
+    def get_browser_width(self):
+        value = self.data.get('user2', 'user_password', fallback=None)
+        if value is None:
+            raise Exception("browser_width option is not in the config file")
+        return int(value)
