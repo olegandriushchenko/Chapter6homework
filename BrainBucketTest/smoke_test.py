@@ -310,24 +310,16 @@ def test_alert1():
 
     alert_1 = Alert(browser)
     alert_1.accept_alert()
-
-
-def test_confirm_alert():
-    browser = Browser("https://cleveronly.com/practice/")
-    alert_confirm = Alert(browser)
-    confirm_btn = Element(browser, "xpath", "//button[@onclick='openConfirmationAlert()']")
-    alert_confirm.accept_alert()
-
-    time.sleep(2)
     msg = Element(browser, "id", 'msg')
     assert msg.get_text() == "You pressed OK!"
 
 
 def test_prompt_alert():
     browser = Browser("https://cleveronly.com/practice/")
-    enter_text_alert = Alert(browser)
     prompt_btn = Element(browser, "xpath", "//button[@onclick='openPrompt()']")
-    enter_text_alert.enter_text(prompt_btn)
+    prompt_btn.click()
+    enter_text_alert = Alert(browser)
+    enter_text_alert.enter_text("Oleg")
 
 
 if __name__ == "__main__":
@@ -343,6 +335,5 @@ if __name__ == "__main__":
     # chapter_11_1_2()
     # chapter_11_1_3()
     test_alert1()
-    test_confirm_alert()
     test_prompt_alert()
 
