@@ -305,16 +305,18 @@ def chapter_11_1_3():
 
 def test_alert1():
     browser = Browser("https://cleveronly.com/practice/")
-    alert_1 = Alert(browser)
     alert_btn = Element(browser, "xpath", "//button[@onclick='openAlert()']")
-    alert_1.switch_to_alert(alert_btn)
+    alert_btn.click()
+
+    alert_1 = Alert(browser)
+    alert_1.accept_alert()
 
 
 def test_confirm_alert():
     browser = Browser("https://cleveronly.com/practice/")
     alert_confirm = Alert(browser)
     confirm_btn = Element(browser, "xpath", "//button[@onclick='openConfirmationAlert()']")
-    alert_confirm.accept_alert(confirm_btn)
+    alert_confirm.accept_alert()
 
     time.sleep(2)
     msg = Element(browser, "id", 'msg')

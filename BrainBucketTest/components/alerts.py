@@ -8,13 +8,13 @@ class Alert:
         self.driver = browser.get_driver()
         self.alert = self.driver.switch_to.alert
 
-    def switch_to_alert(self, browser):
+    def switch_to_alert(self):
         return self.driver.switch_to.alert
 
-    def accept_alert(self, browser):
+    def accept_alert(self):
         self.alert.accept()
 
-    def cancel_alert(self, browser):
+    def cancel_alert(self):
         self.alert.dismiss()
 
     def enter_text(self, text):
