@@ -6,5 +6,5 @@ Feature: Add to cart feature
     Given User is on the PC page
     When user click on the Add to Cart button
     And User clicks on the Shopping cart button
-    Then User should be able to see saved items in the Shopping Cart
+    Then User is be able to see saved items in the Shopping Cart
 
