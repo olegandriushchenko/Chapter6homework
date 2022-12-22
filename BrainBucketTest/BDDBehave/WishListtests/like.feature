@@ -1,6 +1,4 @@
 Feature: Add to wishlist functionality
-  Background:
-    Given User launch Desktops, PC page
 
   Scenario: a user can click on Add to wishlist button
     Given User is on the PC page
