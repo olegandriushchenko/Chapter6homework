@@ -8,6 +8,8 @@ class LoginPage:
         self.header = Header(browser)
         self.right_menu = RightMenu(browser)
         self.continue_btn = Element(browser, "xpath", "//div[@id='content']/div/div/div/a")
+        self.new_customer_title = Element(browser, "xpath", "//h2[contains(text(), 'New Customer')]")
+        self.returning_customer_title = Element(browser, "xpath", "//h2[contains(text(), 'Returning Customer')]")
         self.email_input = Element(browser, "id", "input-email")
         self.password_input = Element(browser, "id", "input-password")
         self.login_button = Element(browser, "xpath", "//div[@id='content']/div/div[2]/div/form/input")
@@ -31,3 +33,9 @@ class LoginPage:
 
     def login_button_click(self):
         self.login_button.click()
+
+    def get_new_customer_title(self):
+        return self.new_customer_title.get_text()
+
+    def get_returning_customer_title(self):
+        return self.returning_customer_title.get_text()

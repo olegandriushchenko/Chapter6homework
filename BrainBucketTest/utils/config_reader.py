@@ -19,14 +19,14 @@ class ConfigReader:
     def get_wait_time(self):
         return self.reader.get_wait_time()
 
-    def user_email(self):
-        return self.reader.get_user_email()
-
-    def user_password(self):
-        return self.reader.get_user_password()
-
     def browser_height(self):
         return self.reader.get_browser_height()
 
     def browser_width(self):
         return self.reader.get_browser_width()
+
+    def get_user1_email(self):
+        return self.reader.get_user1_email()
+
+    def get_user1_password(self):
+        return self.reader.get_user1_password()

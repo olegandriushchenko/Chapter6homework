@@ -21,13 +21,13 @@ class IniFileReader:
             raise Exception("Wait_time option is not present in the config file")
         return int(value)
 
-    def get_user_email(self):
+    def get_user1_email(self):
         value = self.data.get('user1', 'user_email', fallback=None)
         if value is None:
             raise Exception("User_email option is not present in the config file")
         return self.data['user_email']
 
-    def get_user_password(self):
+    def get_user1_password(self):
         value = self.data.get('user1', 'user_password', fallback=None)
         if value is None:
             raise Exception("User_password option is not in the config file")
