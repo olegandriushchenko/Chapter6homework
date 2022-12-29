@@ -1,13 +1,16 @@
+@wip
 Feature: Login functionality
   Background:
     Given User launch login page
 
+  @positive
   Scenario: a user can login using correct email and password
     Given User is not logged in
     When user enters email and password
     And User clicks Login button
     Then The user's profile page will be launched
 
+  @negative
   Scenario: User can't login without entering password
     Given User is not logged in
     When User enters email
