@@ -26,6 +26,7 @@ def verify_user_not_logged_in(context):
 @when("user enters email and password")
 def enter_email_and_password(context):
     login_page = context.login_page
+    configs = context.configs
     login_page.email_input_click(configs.get_user1_email())
     login_page.password_input_click(configs.get_user1_password())
 
