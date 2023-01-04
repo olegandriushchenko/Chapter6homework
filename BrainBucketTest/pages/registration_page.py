@@ -32,6 +32,11 @@ class RegistrationPage:
 
         self.continue_btn = Element(browser, "xpath", "//input[@value='Continue']")
 
+        self.first_name_error = Element(browser, "xpath", "//fieldset[@id='account']/div[2]/div/div")
+        self.last_name_error = Element(browser, "xpath", "//fieldset[@id='account']/div[3]/div/div")
+        self.phonenumber_error = Element(browser, "xpath", "//fieldset[@id='account']/div[5]/div/div")
+        self.password_error = Element(browser, "xpath", "//fieldset[3]/div/div/div")
+
     def get_form_title(self):
         return self.title.get_text(wait=True)
 
@@ -85,3 +90,17 @@ class RegistrationPage:
 
     def submit_form(self):
         self.continue_btn.submit()
+
+    def get_firstname_error(self):
+        return self.first_name_error.get_text()
+
+    def get_lastname_error(self):
+        return self.last_name_error.get_text()
+
+    def get_phonenumber_error(self):
+        return self.phonenumber_error.get_text()
+
+    def get_password_error(self):
+        return self.password_error.get_text()
+
+
